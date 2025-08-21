@@ -118,6 +118,11 @@ const Agent = ({
     setCallStatus(CallStatus.CONNECTING);
 
     if (type === "generate") {
+      if (!process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID) {
+        console.error("❌ VAPI Workflow ID is missing. Please set NEXT_PUBLIC_VAPI_WORKFLOW_ID in your environment variables.");
+        return;
+      }
+      
       await vapi.start(process.env.NEXT_PUBLIC_VAPI_WORKFLOW_ID!, {
         variableValues: {
           username: userName,
